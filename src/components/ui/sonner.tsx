@@ -10,14 +10,18 @@ const Toaster = ({ ...props }: ToasterProps) => {
     <Sonner
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
-      style={
-        {
-          "--success-bg": "#16a34a", 
-          "--success-text": "#ffffff",
-          "--error-bg": "#dc2626", 
-          "--error-text": "#ffffff",
-        } as React.CSSProperties
-      }
+      richColors
+      toastOptions={{
+        classNames: {
+          // Ensure text is white regardless of Sonner's internal variant styles
+          toast: "text-white",
+          title: "text-white",
+          description: "text-white",
+          closeButton: "text-white",
+          success: "bg-green-700 text-white border-green-700",
+          error: "bg-red-600 text-white border-red-700",
+        },
+      }}
       {...props}
     />
   );
