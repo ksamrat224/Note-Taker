@@ -13,7 +13,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
       richColors
       toastOptions={{
         classNames: {
-          // Ensure text is white regardless of Sonner's internal variant styles
           toast: "text-white",
           title: "text-white",
           description: "text-white",
