@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
 type Props = {
-  type: "login" | "signup";
+  type: "login" | "signUp";
 };
 
 const AuthForm = ({ type }: Props) => {
@@ -62,7 +62,7 @@ const AuthForm = ({ type }: Props) => {
         <p className="text-xs">
           {isLoginForm ? "Don't have an account?" : "Already have an account?"}{" "}
           <Link
-            href={isLoginForm ? "/signup" : "/login"}
+            href={isLoginForm ? "/sign-up" : "/login"}
             className={
               '${isPending ? "pointer-events-none opacity-50" : ""} text-blue-500 hover:underline'
             }
