@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 const LogInPage = () => {
   return (
-    <div>LogInPage</div>
-  )
-}
-export default LogInPage
+    <div className="mt-20 flex flex-1 flex-col items-center">LogInPage</div>
+  );
+};
+export default LogInPage;
