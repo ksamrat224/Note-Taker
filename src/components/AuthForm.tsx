@@ -19,7 +19,36 @@ const AuthForm = ({ type }: Props) => {
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (formData: FormData) => {
-    console.log("form submitted");
+    startTransition(async () => {
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+
+      let errorMessage;
+      let title;
+      let description;
+      if (isLoginForm) {
+        errorMessage = (await loginAction(email, password)).errorMessage;
+        title = "Logged in";
+        description = "you have been successfully logged in";
+      } else {
+        errorMessage = (await signUpAction(email, password)).errorMessage;
+        title = "Signed up";
+        description = "check your email for confirmation link";
+      }
+      if (!errorMessage) {
+        toast.success({
+          title,
+          description,
+        });
+        //this doesnot pushes back
+        route.replace("/");
+      } else {
+        toast.error({
+          title: "Error",
+          description: "errorMessage",
+        });
+      }
+    });
   };
 
   return (
