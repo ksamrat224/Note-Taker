@@ -7,7 +7,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import {toast} from "sonner"
+import { toast } from "sonner";
 
 type Props = {
   type: "login" | "signUp";
@@ -36,16 +36,15 @@ const AuthForm = ({ type }: Props) => {
         description = "check your email for confirmation link";
       }
       if (!errorMessage) {
-        toast.success({
-          title,
+        toast(title, {
           description,
+          className: "success", 
         });
-        //this doesnot pushes back
-        route.replace("/");
+        route.replace("/"); //redirect to home page
       } else {
-        toast.error({
-          title: "Error",
-          description: "errorMessage",
+        toast("Error", {
+          description: errorMessage,
+          className: "error", 
         });
       }
     });

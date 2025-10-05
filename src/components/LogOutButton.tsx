@@ -3,10 +3,11 @@ import React from "react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 export const LogOutButton = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const handleLogOut = async () => {
@@ -15,13 +16,17 @@ export const LogOutButton = () => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     const errorMessage = null;
     if (!errorMessage) {
-      toast.success("Logged Out", {
-        description: "You have been logged out successfully",
+      toast({
+        title: "Logged out",
+        description: "you have been successfully logged out",
+        variant: "success",
       });
       router.push("/");
     } else {
-      toast.error("Error", {
+      toast({
+        title: "Error",
         description: errorMessage,
+        variant: "destructive",
       });
     }
     setLoading(false);
