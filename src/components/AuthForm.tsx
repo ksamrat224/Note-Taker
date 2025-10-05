@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
-import { loginAction } from "@/actions/user";
+import { loginAction, signUpAction } from "@/actions/user";
 
 type Props = {
   type: "login" | "signUp";
