@@ -36,15 +36,17 @@ const AuthForm = ({ type }: Props) => {
         description = "check your email for confirmation link";
       }
       if (!errorMessage) {
-        toast(title, {
+        toast({
+          title,
           description,
-          className: "success", 
+          variant: "success",
         });
         route.replace("/"); //redirect to home page
       } else {
-        toast("Error", {
+        toast({
+          title: "Error",
           description: errorMessage,
-          className: "error", 
+          variant: "destructive",
         });
       }
     });
