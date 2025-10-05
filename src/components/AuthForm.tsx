@@ -7,7 +7,8 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
+import { loginAction } from "@/actions/user";
 
 type Props = {
   type: "login" | "signUp";
@@ -15,6 +16,7 @@ type Props = {
 
 const AuthForm = ({ type }: Props) => {
   const isLoginForm = type === "login";
+  const { toast } = useToast();
   const route = useRouter();
   const [isPending, startTransition] = useTransition();
 
