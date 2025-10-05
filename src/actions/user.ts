@@ -20,7 +20,7 @@ export const loginAction = async (email: string, password: string) => {
 export const signUpAction = async (email: string, password: string) => {
   try {
     const { auth } = await createClient();
-    const { data, error } = await auth.signInWithPassword({
+    const { data, error } = await auth.signUp({
       email,
       password,
     });
