@@ -15,6 +15,7 @@ export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   });
+  console.log("middleware runninng");
 
   //   const supabase = createServerClient(
   //     process.env.SUPABASE_URL!,
