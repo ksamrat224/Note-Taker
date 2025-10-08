@@ -2,6 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import React, { ChangeEvent, useEffect } from "react";
 import { Textarea } from "./ui/textarea";
+import useNote from "@/hooks/useNote";
 
 type Props = {
   noteId: string;
