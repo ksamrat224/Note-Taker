@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import React, { ChangeEvent, useEffect } from "react";
 import { Textarea } from "./ui/textarea";
 import useNote from "@/hooks/useNote";
+import { updateNoteAction } from "@/actions/notes";
 
 type Props = {
   noteId: string;
@@ -25,7 +26,7 @@ export const NoteTextInput = ({ noteId, startingNoteText }: Props) => {
     clearTimeout(updateTimeout);
     updateTimeout = setTimeout(() => {
       updateNoteAction(noteId, text);
-    }, debounceTimeout);
+    }, 1000);
   };
   return (
     <Textarea
