@@ -1,6 +1,7 @@
 import { getUser } from "@/auth/server";
 import { AskAIButton } from "@/components/AskAIButton";
 import { NewNoteButton } from "@/components/NewNoteButton";
+import { NoteTextInput } from "@/components/NoteTextInput";
 import { prisma } from "@/db/prisma";
 
 import React from "react";
@@ -26,7 +27,7 @@ const HomePage = async ({ searchParams }: Props) => {
         <AskAIButton user={user} />
         <NewNoteButton user={user} />
       </div>
-      <NotetextInput noteId={noteId} startingNoteText={note?.text || ""} />
+      <NoteTextInput noteId={noteId} startingNoteText={note?.text || ""} />
     </div>
   );
 };

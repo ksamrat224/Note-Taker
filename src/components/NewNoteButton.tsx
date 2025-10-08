@@ -1,7 +1,11 @@
-import React from 'react'
+"use client";
+import { User } from "@supabase/supabase-js";
+import React from "react";
 
-export const NewNoteButton = () => {
-  return (
-    <div>NewNoteButton</div>
-  )
-}
+type Props = {
+  user: User | null;
+};
+export const NewNoteButton = ({ user }: Props) => {
+  console.log(user?.email);
+  return <div>NewNoteButton</div>;
+};

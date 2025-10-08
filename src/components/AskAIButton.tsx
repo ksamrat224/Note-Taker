@@ -3,7 +3,7 @@ import { User } from "@supabase/supabase-js";
 import React from "react";
 
 type Props = {
-  user: User;
+  user: User|null;
 };
 export const AskAIButton = ({ user }: Props) => {
     console.log(user.email);
