@@ -5,13 +5,12 @@ import { Button } from "./ui/button";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-import { useToast } from "@/hooks/use-toast";
+import { createNoteAction } from "@/actions/notes";
 type Props = {
   user: User | null;
 };
 export const NewNoteButton = ({ user }: Props) => {
   const router = useRouter();
-  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
   const handleClickNewNoteButton = async () => {
@@ -31,7 +30,7 @@ export const NewNoteButton = ({ user }: Props) => {
   console.log(user?.email);
   return (
     <Button
-      onChange={handleClickNewNoteButton}
+      onClick={handleClickNewNoteButton}
       variant="secondary"
       className="w-24"
       disabled={loading}
