@@ -1,14 +1,12 @@
-"use client"
-import { Note } from '@prisma/client'
-import React from 'react'
-
+"use client";
+import { Note } from "@prisma/client";
+import React from "react";
+import { SidebarGroupContent as SidebarGroupContentShadCN } from "./ui/sidebar";
 type Props = {
-    notes: Note[]
-}
+  notes: Note[];
+};
 
-export const SidebarGroupContent = ({notes}:Props) => {
-    console.log(notes);
-  return (
-    <div>Your notes here</div>
-  )
-}
+export const SidebarGroupContent = ({ notes }: Props) => {
+  console.log(notes);
+  return <SidebarGroupContentShadCN>Your notes here</SidebarGroupContentShadCN>;
+};
