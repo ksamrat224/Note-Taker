@@ -1,12 +1,17 @@
 "use client";
 import { Note } from "@prisma/client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   SidebarGroupContent as SidebarGroupContentShadCN,
   SidebarMenu,
+  SidebarMenuItem,
 } from "./ui/sidebar";
 import { SearchIcon } from "lucide-react";
 import { Input } from "./ui/input";
+import Fuse from "fuse.js";
+import { DeleteNoteButton } from "./DeleteNoteButton";
+import { SelectNoteButton } from "./SelectNoteButton";
+
 type Props = {
   notes: Note[];
 };
@@ -17,6 +22,23 @@ export const SidebarGroupContent = ({ notes }: Props) => {
   useEffect(() => {
     setLocalNotes(notes);
   }, [notes]);
+
+  const fuse = useMemo(() => {
+    return new Fuse(localNotes, {
+      keys: ["text"],
+      threshold: 0.3,
+    });
+  }, [localNotes]);
+
+  const filteredNotes = searchText
+    ? fuse.search(searchText).map((result) => result.item)
+    : localNotes;
+
+  const deleteNoteLocally = (noteId: string) => {
+    setLocalNotes((prevNotes) =>
+      prevNotes.filter((note) => note.id !== noteId),
+    );
+  };
   return (
     <SidebarGroupContentShadCN>
       <div className="relative flex items-center">
@@ -28,7 +50,18 @@ export const SidebarGroupContent = ({ notes }: Props) => {
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div>
-      <SidebarMenu className="mt-4"></SidebarMenu>
+      <SidebarMenu className="mt-4">
+        {filteredNotes.map((note) => (
+          <SidebarMenuItem key={note.id} className="group/item">
+            <SelectNoteButton note={note} />
+
+            <DeleteNoteButton
+              noteId={note.id}
+              deleteNoteLocally={deleteNoteLocally}
+            />
+          </SidebarMenuItem>
+        ))}
+      </SidebarMenu>
     </SidebarGroupContentShadCN>
   );
 };
