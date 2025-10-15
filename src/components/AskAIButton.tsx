@@ -12,6 +12,10 @@ import {
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Textarea } from "./ui/textarea";
+import { ArrowUpIcon } from "lucide-react";
+import { askAIAboutNotesAction } from "@/actions/notes";
+import "@/styles/ai-response.css";
 
 type Props = {
   user: User | null;
@@ -47,7 +51,17 @@ export const AskAIButton = ({ user }: Props) => {
     textareaREf.current?.focus();
   };
   const handleSubmit = () => {
-    console.log("submit");
+    if (!questionText.trim()) return;
+    const newQuestions = [...questions, questionText];
+    setQuestions(newQuestions);
+    setQuestionText("");
+    setTimeout(scrollToBottom, 100);
+    startTransition(async () => {
+      const response = await askAIAboutNotesAction(newQuestions, responses);
+      setResponses((prev) => [...prev, response]);
+
+      setTimeout(scrollToBottom, 100);
+    });
   };
   const scrollToBottom = () => {
     contentRef.current?.scrollTo({
@@ -92,7 +106,32 @@ export const AskAIButton = ({ user }: Props) => {
           ))}
           {isPending && <p className="animate-pulse text-sm">Thinking...</p>}
         </div>
-        <div></div>
+        <div
+          className="mt-auto flex cursor-text flex-col rounded-lg border p-4"
+          onClick={handleClickInput}
+        >
+          <Textarea
+            ref={textareaREf}
+            placeholder="Ask me anything about the notes"
+            className="placeholder:text-muted-foreground resize-none rounded-none border-none bg-transparent p-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+            style={{
+              minHeight: "0",
+              lineHeight: "normal",
+            }}
+            rows={1}
+            onInput={handleInput}
+            onKeyDown={handleKeyDown}
+            value={questionText}
+            onChange={(e) => setQuestionText(e.target.value)}
+            disabled={isPending}
+          />
+          <Button
+            className="ml-auto size-8 rounded-full"
+            onClick={handleSubmit}
+          >
+            <ArrowUpIcon className="text-background" />
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );
