@@ -13,14 +13,32 @@ import {
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type Props = {
   user: User | null;
 };
 export const AskAIButton = ({ user }: Props) => {
-  console.log(user?.email);
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [questionText, setQuestionText] = useState("");
+  const [questions, setQuestions] = useState<string[]>([]);
+  const [responses, setResponses] = useState<string[]>([]);
+  const handleOnOpenChange = (isOpen: boolean) => {
+    if (!user) {
+      router.push("/login");
+    } else {
+      if (isOpen) {
+        setQuestionText("");
+        setQuestions([]);
+        setResponses([]);
+      }
+      setOpen(isOpen);
+    }
+  };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={handleOnOpenChange}>
       <DialogTrigger asChild>
         <Button variant="outline">Edit Profile</Button>
       </DialogTrigger>
