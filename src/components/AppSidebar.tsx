@@ -30,7 +30,7 @@ async function AppSidebar() {
         <SidebarGroup>
             <SidebarGroupLabel className="mb-2 mt-2 text-lg">
                {user? (
-                "Your Notes (" + notes.length + ")"
+                "Your Notes"
                ):(
                 <p>
                  <Link href="/login" className="underline hover:text-primary">Log in</Link>{" "} to see your notes   
