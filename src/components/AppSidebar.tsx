@@ -6,9 +6,9 @@ import {
   SidebarGroupLabel,
 } from "@/components/ui/sidebar";
 import { prisma } from "@/db/prisma";
-import { Note } from "@prisma/client";
 import Link from "next/link";
 import { SidebarGroupContent } from "./SidebarGroupContent";
+import { Note } from "@prisma/client";
 
 async function AppSidebar() {
     const user = await getUser();
