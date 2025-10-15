@@ -1,21 +1,17 @@
 "use client";
 import { User } from "@supabase/supabase-js";
-import React, { useRef, useTransition } from "react";
+import React, { Fragment, useRef, useTransition } from "react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { text } from "stream/consumers";
 
 type Props = {
   user: User | null;
@@ -68,32 +64,35 @@ export const AskAIButton = ({ user }: Props) => {
   return (
     <Dialog open={open} onOpenChange={handleOnOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
+        <Button variant="secondary">Ask AI</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="custom-scrollbar flex h-[85vh] max-w-4xl flex-col overflow-y-auto"
+        ref={contentRef}
+      >
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Ask AI About Your Notes</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Our AI will answer any question you have about your notes.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
+        <div className="mt-4 flex flex-col gap-8">
+          {questions.map((question, index) => (
+            <Fragment key={index}>
+              <p className="bg-muted text-muted-foreground ml-auto max-w-[60%] rounded-md px-2 py-1 text-sm">
+                {question}
+              </p>
+              {responses[index] && (
+                <p
+                  className="bot-response text-muted-foreground text-sm"
+                  dangerouslySetInnerHTML={{ __html: responses[index] }}
+                />
+              )}
+            </Fragment>
+          ))}
+          {isPending && <p className="animate-pulse text-sm">Thinking...</p>}
         </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        <div></div>
       </DialogContent>
     </Dialog>
   );
