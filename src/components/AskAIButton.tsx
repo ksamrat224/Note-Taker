@@ -1,6 +1,6 @@
 "use client";
 import { User } from "@supabase/supabase-js";
-import React from "react";
+import React, { useRef, useTransition } from "react";
 import {
   Dialog,
   DialogContent,
@@ -15,12 +15,14 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { text } from "stream/consumers";
 
 type Props = {
   user: User | null;
 };
 export const AskAIButton = ({ user }: Props) => {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const [questionText, setQuestionText] = useState("");
   const [questions, setQuestions] = useState<string[]>([]);
@@ -35,6 +37,32 @@ export const AskAIButton = ({ user }: Props) => {
         setResponses([]);
       }
       setOpen(isOpen);
+    }
+  };
+  const textareaREf = useRef<HTMLTextAreaElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const handleInput = () => {
+    const textarea = textareaREf.current;
+    if (!textarea) return;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+  const handleClickInput = () => {
+    textareaREf.current?.focus();
+  };
+  const handleSubmit = () => {
+    console.log("submit");
+  };
+  const scrollToBottom = () => {
+    contentRef.current?.scrollTo({
+      top: contentRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
     }
   };
   return (
