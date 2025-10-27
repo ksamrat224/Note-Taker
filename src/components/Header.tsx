@@ -36,7 +36,7 @@ import { SidebarTrigger } from "./ui/sidebar";
           <LogOutButton />
         ) : (
           <>
-            {/* asChild makes the Button component render the Link component as its child, inheriting its styles and behavior. */}
+            {/* asChild makes the Button component render the Link component as its child, inheriting its styles and behaviorr. */}
             <Button asChild>
               <Link href="/sign-up" className="hidden sm:block">
                 Sign Up{" "}
