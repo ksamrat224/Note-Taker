@@ -4,7 +4,6 @@ import { NewNoteButton } from "@/components/NewNoteButton";
 import { NoteTextInput } from "@/components/NoteTextInput";
 import { prisma } from "@/db/prisma";
 
-import React from "react";
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
