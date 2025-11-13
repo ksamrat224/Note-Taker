@@ -92,10 +92,11 @@ The AI will automatically generate a description for each note after it is saved
 Create a `.env` file in the root directory:
 
 ```env
-NODE_ENV=development
-PORT=3000
-# Add your AI API key here (if applicable)
-AI_API_KEY=your_api_key_here
+DATABASE_URL=postgresql://postgres.=
+SUPABASE_URL =https://
+SUPABASE_ANON_KEY =
+NEXT_PUBLIC_BASE_URL =http://localhost:3000
+OPENAI_API_KEY=sk-pr
 ```
 
 ## 📁 Project Structure
